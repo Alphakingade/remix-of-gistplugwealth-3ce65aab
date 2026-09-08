@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "ff4ac842-4669-4f99-b228-fb9d3e25ec38",
-  "project_id": "3c00189c-3a8c-4065-8d55-434ca258d0be",
-  "url": "/__l5e/assets-v1/ff4ac842-4669-4f99-b228-fb9d3e25ec38/gistplugwealth-logo.png",
-  "r2_key": "a/v1/3c00189c-3a8c-4065-8d55-434ca258d0be/ff4ac842-4669-4f99-b228-fb9d3e25ec38/gistplugwealth-logo.png",
-  "original_filename": "gistplugwealth-logo.png",
-  "size": 114584,
   "content_type": "image/webp",
-  "created_at": "2026-08-25T10:33:20Z"
+  "created_at": "2026-08-25T10:33:20Z",
+  "original_filename": "gistplugwealth-logo.png",
+  "project_id": "0e02e5ef-d24b-4cef-b658-2a21bb7b175e",
+  "r2_key": "a/v1/0e02e5ef-d24b-4cef-b658-2a21bb7b175e/ff4ac842-4669-4f99-b228-fb9d3e25ec38/gistplugwealth-logo.png",
+  "size": 114584,
+  "url": "/__l5e/assets-v1/ff4ac842-4669-4f99-b228-fb9d3e25ec38/gistplugwealth-logo.png",
+  "version": 1
 }
