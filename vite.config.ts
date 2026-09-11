@@ -9,7 +9,7 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 // The site runs entirely in the browser (SPA mode) so it can be hosted as plain
 // static files on any host, including cPanel/shared hosting such as QServers.
 export default defineConfig({
-  nitro: { preset: "node-server" },
+  nitro: false,
   tanstackStart: {
     spa: { enabled: true },
   },
