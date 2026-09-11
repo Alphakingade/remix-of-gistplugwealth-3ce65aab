@@ -13,6 +13,15 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
+
+// Local runs read the repo .env; CI passes the values as environment variables.
+if (existsSync(path.join(root, ".env"))) {
+  for (const line of (await readFile(path.join(root, ".env"), "utf8")).split("\n")) {
+    const match = /^\s*([A-Z0-9_]+)\s*=\s*"?([^"\n]*)"?\s*$/.exec(line);
+    if (match && !process.env[match[1]]) process.env[match[1]] = match[2];
+  }
+}
+
 const source = path.join(root, "dist", "client");
 const out = path.join(root, "dist-static");
 
