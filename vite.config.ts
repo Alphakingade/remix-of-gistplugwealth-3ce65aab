@@ -6,17 +6,21 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// Outside Lovable, honour the host platform. On Vercel we pin the `vercel`
-// Nitro preset so the SSR server is emitted as Build Output API functions
-// instead of a Cloudflare Worker (which Vercel cannot run).
-const isVercel = Boolean(process.env["VERCEL"]) || process.env["NITRO_PRESET"] === "vercel";
+// `STATIC_BUILD=1 vite build` produces a browser-only bundle that any plain
+// file host (cPanel/Litespeed/Apache, e.g. QServers) can serve: no Node server,
+// no server functions. Everything else keeps the normal Lovable build.
+const isStaticBuild = process.env["STATIC_BUILD"] === "1";
 
-export default defineConfig({
-  ...(isVercel ? { nitro: { preset: "vercel" } } : {}),
-  tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
-  },
-});
-
+export default defineConfig(
+  isStaticBuild
+    ? {
+        nitro: false,
+        tanstackStart: { spa: { enabled: true } },
+      }
+    : {
+        tanstackStart: {
+          // Redirect TanStack Start's bundled server entry to src/server.ts (SSR error wrapper).
+          server: { entry: "server" },
+        },
+      },
+);

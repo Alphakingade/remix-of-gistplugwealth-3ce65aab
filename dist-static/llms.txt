@@ -1,0 +1,29 @@
+# GistPlugWealth
+
+> Nigerian digital finance and opportunity publication: practical guides on saving money, side hustles, student finance, money apps, online business and making money in Nigeria. Inform. Inspire. Increase.
+
+GistPlugWealth publishes plain-language money guides written for Nigerians — students, employees, entrepreneurs and business owners. Articles cover legitimate ways to earn, save and grow money in Nigeria, plus the apps and tools that make it easier. Content is educational and is not financial advice.
+
+## Pages
+
+- [Home](/): Latest and featured money guides.
+- [All articles](/blog): Every published guide, searchable and filterable by category.
+- [Search](/search): Search the full archive.
+- [About](/about): What GistPlugWealth is and who it is for.
+- [Contact](/contact): Reach the editorial team.
+
+## Categories
+
+- [Making Money in Nigeria](/category/making-money-in-nigeria): Legitimate ways to earn in Nigeria.
+- [Saving Money](/category/saving-money): Practical saving and budgeting habits.
+- [Side Hustles](/category/side-hustles): Extra income ideas that work locally.
+- [Student Finance](/category/student-finance): Money guides for Nigerian students.
+- [Apps](/category/apps): Payment, saving and investment apps for Nigerians.
+- [Online Business](/category/online-business): Starting and running a digital business.
+- [Resources](/category/resources): Tools and reference material.
+
+## Optional
+
+- [Privacy Policy](/privacy-policy): How reader data is handled.
+- [Terms of Use](/terms-of-use): Terms for using the site.
+- [Disclaimer](/disclaimer): Financial information disclaimer.
