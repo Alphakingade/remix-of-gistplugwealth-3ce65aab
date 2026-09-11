@@ -79,18 +79,23 @@ export async function getAdminOverview() {
 
   const countOf = async (
     table: "articles" | "categories" | "tags" | "newsletter_subscribers" | "contact_messages",
-    status?: "published" | "draft",
   ) => {
-    let query = supabase.from(table).select("id", { count: "exact", head: true });
-    if (status) query = (query as never as typeof query).eq("status", status);
-    const { count } = await query;
+    const { count } = await supabase.from(table).select("id", { count: "exact", head: true });
+    return count ?? 0;
+  };
+
+  const countArticles = async (status: "published" | "draft") => {
+    const { count } = await supabase
+      .from("articles")
+      .select("id", { count: "exact", head: true })
+      .eq("status", status);
     return count ?? 0;
   };
 
   const [total, published, drafts, categories, tags, subscribers, messages] = await Promise.all([
     countOf("articles"),
-    countOf("articles", "published"),
-    countOf("articles", "draft"),
+    countArticles("published"),
+    countArticles("draft"),
     countOf("categories"),
     countOf("tags"),
     countOf("newsletter_subscribers"),
