@@ -1,49 +1,66 @@
-# Deploying GistPlugWealth to Vercel
+# Hosting GistPlugWealth on QServers (or any cPanel / shared host)
 
-This is a TanStack Start app with server-side rendering, so it must be deployed
-as a **server** app, not as a static Vite site.
+The site can now be published as **plain files** — no Node.js, no terminal, no
+persistent server. Everything (articles, admin, newsletter, contact) runs in the
+visitor's browser and talks straight to the backend.
 
-## 1. Import the repo on Vercel
+## Option A — automatic deploys with GitHub Actions (recommended)
 
-Vercel reads `vercel.json` in the repo root, which already sets:
+`.github/workflows/deploy-static.yml` builds the site on GitHub and uploads the
+finished files to your hosting over FTP every time you push to `main`.
 
-- Framework preset: **Other** (`"framework": null`) — do not leave it on "Vite",
-  that would publish an empty static folder and every page would 404.
-- Build command: `vite build`
-- `NITRO_PRESET=vercel` so the SSR server is emitted to `.vercel/output`
-  (Vercel Build Output API). Leave "Output Directory" **empty** in the Vercel UI.
+Add these repository secrets (GitHub → Settings → Secrets and variables →
+Actions):
 
-## 2. Environment variables
-
-The backend URL and publishable key are baked into the build from the repo's
-`.env`, and the server falls back to those values when the matching
-`SUPABASE_*` variables are missing, so sign in / sign up work on Vercel without
-extra setup. Setting them explicitly still overrides the defaults.
-
-
-Add these in Vercel → Project → Settings → Environment Variables
-(Production **and** Preview). Values are the ones in your project's `.env`:
-
-| Variable | Purpose |
+| Secret | Value |
 | --- | --- |
-| `VITE_SUPABASE_URL` | Browser backend URL |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | Browser publishable key |
-| `VITE_SUPABASE_PROJECT_ID` | Project id |
-| `SUPABASE_URL` | Same URL, for server functions |
-| `SUPABASE_PUBLISHABLE_KEY` | Same publishable key, for server functions |
-| `SUPABASE_PROJECT_ID` | Project id |
-| `SUPABASE_SERVICE_ROLE_KEY` | Only needed for serving uploaded article images |
+| `SITE_URL` | `https://your-domain.com` (used for the sitemap) |
+| `VITE_SUPABASE_URL` | from the project `.env` |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | from the project `.env` |
+| `VITE_SUPABASE_PROJECT_ID` | from the project `.env` |
+| `FTP_SERVER` | e.g. `ftp.your-domain.com` |
+| `FTP_USERNAME` / `FTP_PASSWORD` | the cPanel FTP account |
+| `FTP_SERVER_DIR` | usually `/public_html/` |
 
-`VITE_*` values are inlined at build time — after changing them, redeploy.
+Then push, or run the workflow manually from the Actions tab.
 
-## 3. Auth redirect URLs
+## Option B — build once and upload by hand
 
-In the backend auth settings add your new domain to the allowed redirect URLs
-and set the Site URL to `https://your-domain.com`, otherwise Google sign-in
-bounces back to the old domain.
+```bash
+npm install
+SITE_URL=https://your-domain.com npm run build:static
+```
 
-## 4. Admin access
+Upload **everything inside `dist-static/`** (including the hidden `.htaccess`)
+into `public_html`. That folder contains `index.html`, the assets, `.htaccess`,
+`robots.txt` and a generated `sitemap.xml`.
 
-The admin dashboard always lives at `https://your-domain.com/admin`.
-Sign in at `/auth` with an account that has the admin role; existing admins can
-grant access to new emails from **Admin → Admin team**.
+The `.htaccess` is what makes `/blog`, `/article/...` and `/admin` work on a
+refresh — without it those URLs return 404.
+
+Re-run the command and re-upload whenever the code changes. Publishing new
+articles does **not** need a re-upload; only the `sitemap.xml` becomes slightly
+stale, so refresh it occasionally.
+
+## Admin access
+
+The admin dashboard is always at `https://your-domain.com/admin`.
+
+1. Go to `https://your-domain.com/auth` and create your account.
+2. Ask an existing administrator to add you under **Admin → Admin team**.
+   (For the very first administrator, the account has to be granted access once
+   from the Lovable chat.)
+
+## Article images
+
+Images you upload in the editor are served from the backend's storage. For them
+to show on your own domain, public file storage must be allowed in your Lovable
+workspace (Settings → Privacy & Security → allow public buckets). Until then,
+articles fall back to the built-in section images.
+
+## Trade-off to know about
+
+Because pages are rendered in the browser, search engines and social previews
+see the shared site title and description rather than per-article ones. If
+per-article link previews matter more than shared hosting, publish through
+Lovable (or any Node host) and point the domain there instead.
