@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
+import { useServerFn } from "@/lib/use-fn";
 import { Loader2, Mail } from "lucide-react";
 import { z } from "zod";
 import { subscribeToNewsletter } from "@/lib/content.functions";

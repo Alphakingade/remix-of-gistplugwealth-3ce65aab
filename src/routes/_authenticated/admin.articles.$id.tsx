@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
+import { useServerFn } from "@/lib/use-fn";
 import { Bold, Eye, Heading2, ImagePlus, Italic, Link2, List, ListOrdered, Loader2, Quote, Sparkles } from "lucide-react";
 import { ArticleBody } from "@/components/site/ArticleBody";
 import { FormatGuide } from "@/components/site/FormatGuide";

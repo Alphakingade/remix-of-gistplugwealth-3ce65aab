@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
+import { useServerFn } from "@/lib/use-fn";
 import { Loader2 } from "lucide-react";
 import { adminSaveSettings } from "@/lib/admin.functions";
 import { siteQuery } from "@/lib/queries";

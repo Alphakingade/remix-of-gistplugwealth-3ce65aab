@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
+import { useServerFn } from "@/lib/use-fn";
 import { FileText, Inbox, LayoutDashboard, LogOut, Settings, Tags, Users } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { adminWhoAmI } from "@/lib/admin.functions";
