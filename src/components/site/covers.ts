@@ -4,6 +4,7 @@ import coverApps from "@/assets/cover-apps.jpg";
 import coverBusiness from "@/assets/cover-business.jpg";
 import coverSaving from "@/assets/cover-saving.jpg";
 import coverDollars from "@/assets/cover-dollars.jpg";
+import { resolveImageUrl } from "@/lib/media";
 
 const BY_CATEGORY: Record<string, string> = {
   "making-money-in-nigeria": coverOnlineIncome,
@@ -23,7 +24,8 @@ export function coverFor(article: {
   featured_image?: string | null;
   category?: { slug: string } | null;
 }) {
-  if (article.featured_image) return article.featured_image;
+  const resolved = resolveImageUrl(article.featured_image);
+  if (resolved) return resolved;
   const slug = article.category?.slug ?? "";
   return BY_CATEGORY[slug] ?? coverOnlineIncome;
 }
